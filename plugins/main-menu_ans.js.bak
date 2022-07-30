@@ -1,0 +1,65 @@
+const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys')
+let fs = require('fs')
+let handler = async (m) => {
+let krizyn = `
+*Halo*
+
+Sᴀʏᴀ ᴀᴅᴀʟᴀʜ ʀɪғ ʙᴏᴛ,ʙᴏᴛ ɪɴɪ ᴀᴅᴀʟᴀʜ ʙᴇᴛᴀ ᴍᴜʟᴛɪ ᴅᴇᴠɪᴄᴇ ᴡʜᴀᴛsᴀᴘᴘ,ʏᴀɴɢ ᴅɪ ʙᴜᴀᴛ ᴏʟᴇʜ ᴏᴡɴᴇʀ,ᴊɪᴋᴀ ᴋᴀᴍᴜ ᴍᴇɴᴇᴍᴜᴋᴀɴ ʙᴜɢ ᴀᴛᴀᴜ ᴇʀʀᴏʀ ʜᴀʀᴀᴘ ʟᴀᴘᴏʀ
+	`.trim()
+  let message = await prepareWAMessageMedia({ image: await (await require('node-fetch')(fotonya2)).buffer()}, { upload: conn.waUploadToServer }) 
+    const template = generateWAMessageFromContent(m.key.remoteJid, proto.Message.fromObject({
+        templateMessage: {
+            hydratedTemplate: {
+                hydratedContentText: krizyn,
+                imageMessage: message.imageMessage, 
+           hydratedFooterText: '[❗] Silahkan pilih Command Dibawah ini',
+           hydratedButtons: [{
+             urlButton: {
+               displayText: 'ɢᴄ ʙᴏᴛ',
+               url: gc
+             }
+
+           },
+                {
+               urlButton: {
+               displayText: 'ɴᴜᴍʙᴇʀ ᴏᴡɴᴇʀ',
+               url: nomer
+             }
+
+           },
+               {
+             quickReplyButton: {
+               displayText: 'ʀᴜʟᴇs',
+               id: '.snk',
+             }
+             
+           },
+               {
+             quickReplyButton: {
+               displayText: 'sᴄ',
+               id: '.sc',
+             }
+             
+             },
+               {
+             quickReplyButton: {
+               displayText: 'ʟɪsᴛ ᴍᴇɴᴜ',
+               id: '.panel',
+             }
+
+           }]
+         }
+       }
+     }), { userJid: m.sender, quoted: m });
+    //conn.reply(m.chat, text.trim(), m)
+    return await conn.relayMessage(
+         m.chat,
+         template.message,
+         { messageId: template.key.id }
+     )
+}
+
+handler.tags = ['main', 'info']
+handler.command = /^(menu|help|m)$/i
+handler.help = ['menu']
+module.exports = handler
